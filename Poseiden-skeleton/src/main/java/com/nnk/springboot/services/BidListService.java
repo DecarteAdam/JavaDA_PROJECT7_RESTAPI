@@ -19,7 +19,7 @@ public class BidListService {
      * @param bidList to save
      * @return saved bidList
      */
-    public BidList add(BidList bidList){
+    public BidList save(BidList bidList){
         return this.bidListRepository.save(bidList);
     }
 
@@ -36,7 +36,7 @@ public class BidListService {
      * Find all bidLists
      * @return all bidLists
      */
-    public List<BidList> getBidLists(){
+    public List<BidList> findAll(){
         return this.bidListRepository.findAll();
     }
 
@@ -44,7 +44,7 @@ public class BidListService {
      * Delete bidList by its id
      * @param id of bidList to delete
      */
-    public void deleteBidList(int id){
+    public void deleteById(int id){
         this.bidListRepository.deleteById(id);
     }
 }
