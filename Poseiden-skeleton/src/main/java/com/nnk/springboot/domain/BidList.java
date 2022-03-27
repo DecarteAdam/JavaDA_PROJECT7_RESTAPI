@@ -17,7 +17,7 @@ public class BidList {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer BidListId;
+    private Integer bidListId;
     private String account;
     private String type;
     private Double bidQuantity;
@@ -45,7 +45,7 @@ public class BidList {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         BidList bidList = (BidList) o;
-        return BidListId != null && Objects.equals(BidListId, bidList.BidListId);
+        return bidListId != null && Objects.equals(bidListId, bidList.bidListId);
     }
 
     @Override
