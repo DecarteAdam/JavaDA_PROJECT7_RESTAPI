@@ -27,7 +27,7 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model) {
         // TODO: call service find all bids to show to the view
-        model.addAttribute("bidList", bidListService.getBidLists());
+        model.addAttribute("bidList", bidListService.findAll());
         return "bidList/list";
     }
 
@@ -52,8 +52,8 @@ public class BidListController {
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
-            bidListService.add(bid);
-            model.addAttribute("bidList", this.bidListService.getBidLists());
+            bidListService.save(bid);
+            model.addAttribute("bidList", this.bidListService.findAll());
             return "redirect:/bidList/list";
         }
         return "bidList/add";
@@ -75,7 +75,7 @@ public class BidListController {
     }
 
     /***
-     *
+     * Update bidList by its id
      * @param id of bidList to update
      * @param bidList bidList to update
      * @param result errors to check
@@ -91,8 +91,8 @@ public class BidListController {
         }
 
         bidList.setBidListId(id);
-        bidListService.add(bidList);
-        model.addAttribute("bidList", bidListService.getBidLists());
+        bidListService.save(bidList);
+        model.addAttribute("bidList", bidListService.findAll());
         return "redirect:/bidList/list";
     }
 
@@ -107,8 +107,8 @@ public class BidListController {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         BidList bidList = bidListService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
-        bidListService.deleteBidList(bidList.getBidListId());
-        model.addAttribute("bidList", bidListService.getBidLists());
+        bidListService.deleteById(bidList.getBidListId());
+        model.addAttribute("bidList", bidListService.findAll());
         return "redirect:/bidList/list";
     }
 }
