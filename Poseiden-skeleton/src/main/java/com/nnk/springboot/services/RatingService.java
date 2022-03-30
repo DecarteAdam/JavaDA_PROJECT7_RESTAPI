@@ -27,7 +27,7 @@ public class RatingService {
     /**
      * Find rating by its id
      * @param id of rating
-     * @return bidList
+     * @return rating
      */
     public Optional<Rating> findById(int id){
         return this.ratingRepository.findById(id);
