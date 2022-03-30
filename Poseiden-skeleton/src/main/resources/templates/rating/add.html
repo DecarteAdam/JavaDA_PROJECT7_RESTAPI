@@ -15,41 +15,43 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
-			 -->
-
-			<!--TODO: Wich values to diplay?--> MoodysRating, SandPRating, fitchRtaing, orderNumber
-			<!--<div class="form-group">
-				<label for="rating_id" class="col-sm-2 control-label">Curve id</label>
+			<div class="form-group">
+				<label for="moodysRating" class="col-sm-2 control-label">Moodys rating</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{ratingId}" id="rating_id" placeholder="Rating id" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('ratingId')}" th:errors="*{ratingId}"></p>
+					<input type="text" th:field="*{moodysRating}" id="moodysRating" placeholder="Moodys rating" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="term" class="col-sm-2 control-label">Term</label>
+				<label for="sandPRating" class="col-sm-2 control-label">Sand P-rating</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{term}" id="term" placeholder="Type" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+					<input type="text" th:field="*{sandPRating}" id="sandPRating" placeholder="sand P-Rating" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="value" class="col-sm-2 control-label">Value</label>
+				<label for="fitchRating" class="col-sm-2 control-label">Fitch rating</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{value}" id="value" placeholder="Value"
+					<input type="text" th:field="*{fitchRating}" id="fitchRating" placeholder="Value"
 						   class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+					<p class="text-danger" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></p>
 				</div>
 			</div>
-
+			<div class="form-group">
+				<label for="orderNumber" class="col-sm-2 control-label">Order number</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{orderNumber}" id="orderNumber" placeholder="Value"
+						   class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('orderNumber')}" th:errors="*{orderNumber}"></p>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<div class="col-sm-12">
-					<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>
-					<input class="btn btn-primary btn-sm" type="submit" value="Add CurvePoint">
+					<a class="btn btn-danger btn-sm" href="/rating/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add Rating">
 				</div>
-			</div>-->
+			</div>
 		</form>
 	</div>
 
