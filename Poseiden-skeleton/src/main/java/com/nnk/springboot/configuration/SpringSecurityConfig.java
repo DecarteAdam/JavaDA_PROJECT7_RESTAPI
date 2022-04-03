@@ -1,7 +1,8 @@
 package com.nnk.springboot.configuration;
 
-import com.nnk.springboot.services.security.CustomerOAuth2User;
+import com.nnk.springboot.services.UserDetailService;
 import com.nnk.springboot.services.security.CustomerOAuth2UserService;
+import com.nnk.springboot.services.security.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
+
+    @Autowired
+    UserDetailService userDetailService;
 
     @Bean
     AuthenticationProvider authenticationProvider() {
@@ -44,7 +48,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/**", "/styles/login/**", "/img/**")
+                .antMatchers("/**", "/oauth2/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -59,6 +63,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .userInfoEndpoint()
                     .userService(auth2UserService)
                 .and()
+                .successHandler(oAuth2LoginSuccessHandler)
+                /*.defaultSuccessUrl("/bidList/list")*/
                 .and()
                 .rememberMe()
                 .and()
@@ -88,4 +94,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomerOAuth2UserService auth2UserService;
+
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 }
