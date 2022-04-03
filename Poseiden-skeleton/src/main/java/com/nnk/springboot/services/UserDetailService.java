@@ -21,4 +21,19 @@ public class UserDetailService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         return new CustomUserDetails(user);
     }
+
+
+    public User getUserByEmail(String email){
+        return userRepository.findByUsername(email);
+    }
+
+
+    public void save(String email, String name, User.Provider provider) {
+        User user = new User();
+        user.setUsername(email);
+        user.setFullname(name);
+        user.setProvider(provider);
+        user.setRole("USER");
+        userRepository.save(user);
+    }
 }

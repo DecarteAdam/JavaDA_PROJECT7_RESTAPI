@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
@@ -20,6 +20,10 @@ public class User {
     private String fullname;
     @NotBlank(message = "Role is mandatory")
     private String role;
+
+    @Column(name = "auth_provider")
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,17 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public enum Provider {
+        LOCAL, GOOGLE
     }
 }
