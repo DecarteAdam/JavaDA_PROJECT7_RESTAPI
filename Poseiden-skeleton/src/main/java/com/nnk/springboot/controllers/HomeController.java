@@ -19,14 +19,14 @@ public class HomeController {
 		logger.debug("GET: /");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken))
-			return "redirect:/bidList/list";
+			return "redirect:/bid/list";
 		return "home";
 	}
 
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model) {
 		logger.debug("GET: /admin/home");
-		return "redirect:/bidList/list";
+		return "redirect:/bid/list";
 	}
 
 

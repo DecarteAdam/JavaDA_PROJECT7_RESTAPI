@@ -2,7 +2,10 @@ package com.nnk.springboot;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.services.CurveService;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,31 +20,55 @@ import java.util.Optional;
 public class CurvePointTests {
 
 	@Autowired
+	private CurveService curveService;
+
+	@Autowired
 	private CurvePointRepository curvePointRepository;
 
+
+	private CurvePoint curvePoint;
+
+	@Before
+	public void setUp(){
+		curvePoint = new CurvePoint();
+		curvePoint.setCurveId(10);
+		curvePoint.setTerm(10d);
+		curvePoint.setValue(10d);
+	}
+
+	@After
+	public void cleanUp(){
+		curvePointRepository.deleteAll();
+	}
+
 	@Test
-	public void curvePointTest() {
-		CurvePoint curvePoint = new CurvePoint(/*10, 10d, 30d*/);
-
-		// Save
-		curvePoint = curvePointRepository.save(curvePoint);
+	public void save(){
+		curvePoint = curveService.save(curvePoint);
 		Assert.assertNotNull(curvePoint.getId());
-		Assert.assertTrue(curvePoint.getCurveId() == 10);
+		Assert.assertEquals(curvePoint.getCurveId(), 10d, 10d);
+	}
 
-		// Update
-		curvePoint.setCurveId(20);
-		curvePoint = curvePointRepository.save(curvePoint);
-		Assert.assertTrue(curvePoint.getCurveId() == 20);
+	@Test
+	public void update(){
+		curvePoint.setValue(20d);
+		curvePoint = curveService.save(curvePoint);
+		Assert.assertEquals(curvePoint.getValue(), 20d, 20d);
+	}
 
-		// Find
-		List<CurvePoint> listResult = curvePointRepository.findAll();
+	@Test
+	public void find(){
+		curvePoint = curveService.save(curvePoint);
+		List<CurvePoint> listResult = curveService.findAll();
 		Assert.assertTrue(listResult.size() > 0);
+	}
 
-		// Delete
+	@Test
+	public void delete(){
+		curvePoint = curveService.save(curvePoint);
 		Integer id = curvePoint.getId();
-		curvePointRepository.delete(curvePoint);
-		Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
-		Assert.assertFalse(curvePointList.isPresent());
+		curveService.deleteById(id);
+		Optional<CurvePoint> bidList = curveService.findById(id);
+		Assert.assertFalse(bidList.isPresent());
 	}
 
 }

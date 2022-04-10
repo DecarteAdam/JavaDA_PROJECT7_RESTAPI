@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @SessionAttributes("user")
-public class UserDetailService implements UserDetailsService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -28,12 +32,37 @@ public class UserDetailService implements UserDetailsService {
     }
 
 
-    public void save(String email, String name, User.Provider provider) {
-        User user = new User();
-        user.setUsername(email);
-        user.setFullname(name);
-        user.setProvider(provider);
-        user.setRole("USER");
+    public void save(User user) {
+        if (user.getPassword() != null){
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
+        }
+
         userRepository.save(user);
+    }
+
+    /**
+     * Find bidList by its id
+     * @param id of bidList
+     * @return bidList
+     */
+    public Optional<User> findById(int id){
+        return this.userRepository.findById(id);
+    }
+
+    /**
+     * Find all bidLists
+     * @return all bidLists
+     */
+    public List<User> findAll(){
+        return this.userRepository.findAll();
+    }
+
+    /**
+     * Delete bidList by its id
+     * @param id of bidList to delete
+     */
+    public void deleteById(int id){
+        this.userRepository.deleteById(id);
     }
 }

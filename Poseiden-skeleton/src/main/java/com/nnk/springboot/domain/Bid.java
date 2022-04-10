@@ -12,12 +12,12 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "bidlist")
-public class BidList {
+@Table(name = "bid")
+public class Bid {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer bidListId;
+    private Integer id;
     private String account;
     private String type;
     private Double bidQuantity;
@@ -44,8 +44,8 @@ public class BidList {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        BidList bidList = (BidList) o;
-        return bidListId != null && Objects.equals(bidListId, bidList.bidListId);
+        Bid bid = (Bid) o;
+        return id != null && Objects.equals(id, bid.id);
     }
 
     @Override

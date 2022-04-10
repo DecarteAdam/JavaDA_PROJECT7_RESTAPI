@@ -1,6 +1,6 @@
 package com.nnk.springboot.configuration;
 
-import com.nnk.springboot.services.UserDetailService;
+import com.nnk.springboot.services.UserService;
 import com.nnk.springboot.services.security.CustomerOAuth2UserService;
 import com.nnk.springboot.services.security.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     @Autowired
-    UserDetailService userDetailService;
+    UserService userService;
 
     @Bean
     AuthenticationProvider authenticationProvider() {
@@ -55,7 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/bidList/list", true)
+                .defaultSuccessUrl("/bid/list", true)
                 .permitAll()
                 .and()
                 .oauth2Login()
@@ -87,10 +87,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*@Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }*/
 
     @Autowired
     private CustomerOAuth2UserService auth2UserService;
