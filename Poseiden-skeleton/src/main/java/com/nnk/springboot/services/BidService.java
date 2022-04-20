@@ -1,7 +1,7 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.domain.Bid;
+import com.nnk.springboot.repositories.BidRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +10,17 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class BidListService {
+public class BidService {
 
-    private final BidListRepository bidListRepository;
+    private final BidRepository bidRepository;
 
     /**
      * Save bidList
-     * @param bidList to save
+     * @param bid to save
      * @return saved bidList
      */
-    public BidList save(BidList bidList){
-        return this.bidListRepository.save(bidList);
+    public Bid save(Bid bid){
+        return this.bidRepository.save(bid);
     }
 
     /**
@@ -28,16 +28,16 @@ public class BidListService {
      * @param id of bidList
      * @return bidList
      */
-    public Optional<BidList> findById(int id){
-        return this.bidListRepository.findById(id);
+    public Optional<Bid> findById(int id){
+        return this.bidRepository.findById(id);
     }
 
     /**
      * Find all bidLists
      * @return all bidLists
      */
-    public List<BidList> findAll(){
-        return this.bidListRepository.findAll();
+    public List<Bid> findAll(){
+        return this.bidRepository.findAll();
     }
 
     /**
@@ -45,6 +45,6 @@ public class BidListService {
      * @param id of bidList to delete
      */
     public void deleteById(int id){
-        this.bidListRepository.deleteById(id);
+        this.bidRepository.deleteById(id);
     }
 }

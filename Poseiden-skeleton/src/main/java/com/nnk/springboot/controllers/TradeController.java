@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,14 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @AllArgsConstructor
 public class TradeController {
-    // TODO: Inject Trade service
-
-    TradeService tradeService;
+    private static final Logger logger = LoggerFactory.getLogger(TradeController.class);
+    private TradeService tradeService;
 
     @RequestMapping("/trade/list")
-    public String home(Model model)
-    {
-        // TODO: find all Trade, add to model
+    public String home(Model model) {
+        logger.debug("GET: /trade/list");
         model.addAttribute("trades", tradeService.findAll());
         return "trade/list";
     }
@@ -34,7 +34,7 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+        logger.debug("GET: /trade/validate");
         if (!result.hasErrors()) {
             tradeService.save(trade);
             model.addAttribute("trades", this.tradeService.findAll());
@@ -45,7 +45,7 @@ public class TradeController {
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+        logger.debug("GET: /trade/update/{}", id);
         Trade trade = tradeService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         model.addAttribute("trade", trade);
@@ -54,8 +54,8 @@ public class TradeController {
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+                              BindingResult result, Model model) {
+        logger.debug("GET: /trade/update/{}", id);
         if (result.hasErrors()) {
             return "trade/update";
         }
@@ -68,7 +68,7 @@ public class TradeController {
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
+        logger.debug("GET: /trade/delete/{}", id);
         Trade trade = tradeService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         tradeService.deleteById(trade.getTradeId());
