@@ -100,18 +100,6 @@ public class RatingControllerTest {
         ).andExpect(redirectedUrl("/rating/list"));
     }
 
-    /*@Test
-    @WithMockUser
-    public void updateQueryErrors() throws Exception {
-
-
-        this.mockMvc.perform(post("/curvePoint/validate/")
-                .param("account", "Account")
-                .param("type", "Test type")
-                .param("cyrveQuantity", "Error*0")
-                .with(csrf())
-        ).andExpect(redirectedUrl("/curvePoint/add"));
-    }*/
 
     @Test
     @WithMockUser

@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.Bid;
 import com.nnk.springboot.services.BidService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class BidController {
 
-    BidService bidService;
+    private static final Logger logger = LoggerFactory.getLogger(BidController.class);
+
+    private BidService bidService;
 
     /**
      * Display BidList list
@@ -26,18 +30,19 @@ public class BidController {
      */
     @RequestMapping("/bid/list")
     public String home(Model model) {
-        // TODO: call service find all bids to show to the view
+        logger.debug("GET: /bid/list");
         model.addAttribute("bidList", bidService.findAll());
         return "bid/list";
     }
 
     /**
-     * Dsiplay add bidList form
-     * @param bid
+     * Display add bidList form
+     * @param bid to add
      * @return add form page
      */
     @GetMapping("/bid/add")
     public String addBidForm(Bid bid) {
+        logger.debug("GET: /bid/add");
         return "bid/add";
     }
 
@@ -50,7 +55,7 @@ public class BidController {
      */
     @PostMapping("/bid/validate")
     public String validate(@Valid Bid bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
+        logger.debug("POST: /bid/validate");
         if (!result.hasErrors()) {
             bidService.save(bid);
             model.addAttribute("bidList", this.bidService.findAll());
@@ -67,7 +72,7 @@ public class BidController {
      */
     @GetMapping("/bid/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        logger.debug("GET: /bid/update/{id}");
         Bid bid = bidService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
         model.addAttribute("bid", bid);
@@ -85,7 +90,7 @@ public class BidController {
     @PostMapping("/bid/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid Bid bid,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+        logger.debug("POST: /bid/update/{id}");
         if (result.hasErrors()) {
             return "bid/update";
         }
@@ -104,7 +109,7 @@ public class BidController {
      */
     @GetMapping("/bid/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+        logger.debug("GET: /bid/delete/{id}");
         Bid bid = bidService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
         bidService.deleteById(bid.getId());

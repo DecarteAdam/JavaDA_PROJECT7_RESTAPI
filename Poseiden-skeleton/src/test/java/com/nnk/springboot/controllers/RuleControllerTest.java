@@ -108,33 +108,6 @@ public class RuleControllerTest {
         ).andExpect(redirectedUrl("/rule/list"));
     }
 
-    /*@Test
-    @WithMockUser
-    public void updateQueryErrors() throws Exception {
-
-
-        this.mockMvc.perform(post("/curvePoint/validate/")
-                .param("account", "Account")
-                .param("type", "Test type")
-                .param("cyrveQuantity", "Error*0")
-                .with(csrf())
-        ).andExpect(redirectedUrl("/curvePoint/add"));
-    }*/
-
-    /*@Test
-    @WithMockUser
-    public void updateWithError() throws Exception {
-        ruleRepository.save(rule);
-        this.mockMvc.perform(post("/rule/update/" + rule.getId())
-                .param("name", "Name")
-                .param("description", "Description")
-                .param("json", "JSON")
-                .param("template", "Template")
-                .param("sqlPart", "SQLPart")
-                .param("sqlStart", "SQLStart")
-                .with(csrf())
-        ).andExpect(model().hasErrors());
-    }*/
 
     @Test
     @WithMockUser

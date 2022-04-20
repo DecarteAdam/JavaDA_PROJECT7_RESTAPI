@@ -98,19 +98,6 @@ public class BidControllerTest {
         ).andExpect(redirectedUrl("/bid/list"));
     }
 
-    /*@Test
-    @WithMockUser
-    public void updateQueryErrors() throws Exception {
-
-
-        this.mockMvc.perform(post("/bid/validate/")
-                .param("account", "Account")
-                .param("type", "Test type")
-                .param("bidQuantity", "Error*0")
-                .with(csrf())
-        ).andExpect(redirectedUrl("/bid/add"));
-    }*/
-
     @Test
     @WithMockUser
     public void updateBidWithError() throws Exception {
